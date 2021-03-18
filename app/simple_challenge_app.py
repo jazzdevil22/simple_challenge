@@ -1,2 +1,5 @@
 def verify_data(data):
-	return True
+	if len(data.keys()) != 2:
+		return False
+	else :
+		return True
