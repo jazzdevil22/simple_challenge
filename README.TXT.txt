@@ -1,0 +1,1 @@
+A simple app to calculate the wet and dry surface areas (dry = `z > 0` wet = `z < 0`) of a shape represented by data in simple_challenge_data.json. There are two keys in the data, `p` & `q`. `p` is a list of points in 3d space. `q` is a list of quadrilaterals, each quadrilateral is a list of 4 indices into the list of points.
