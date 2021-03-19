@@ -1,1 +1,1 @@
-from .simple_challenge_app import verify_data
+from .verify_data import verify_data
