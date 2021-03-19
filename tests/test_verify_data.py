@@ -9,9 +9,10 @@ def test_verifying_data_from_json_file_with_correct_format_returns_True():
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = True
+	result = app.verify_data(test_data)
 
+	#then
+	expected = True
 	assert result == expected
 
 def test_verifying_data_from_json_file_with_too_many_keys_returns_False():
@@ -20,9 +21,10 @@ def test_verifying_data_from_json_file_with_too_many_keys_returns_False():
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_with_too_few_keys_returns_False():
@@ -31,9 +33,10 @@ def test_verifying_data_from_json_file_with_too_few_keys_returns_False():
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_with_incorrect_keys_returns_False():
@@ -42,7 +45,7 @@ def test_verifying_data_from_json_file_with_incorrect_keys_returns_False():
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
+	result = app.verify_data(test_data)
 	expected = False
 
 	assert result == expected
@@ -53,9 +56,10 @@ def test_verifying_data_from_json_file_with_incorrect_coordinate_format_returns_
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_with_incorrect_quadrilateral_format_returns_false():
@@ -64,9 +68,10 @@ def test_verifying_data_from_json_file_with_incorrect_quadrilateral_format_retur
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_exceeds_the_number_of_coordinates():
@@ -75,9 +80,10 @@ def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_ex
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_is_negative():
@@ -86,9 +92,10 @@ def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_is
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_returns_false_if_a_coordinate_is_not_a_float():
@@ -97,9 +104,10 @@ def test_verifying_data_from_json_file_returns_false_if_a_coordinate_is_not_a_fl
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
 
 def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_is_not_an_int():
@@ -108,7 +116,8 @@ def test_verifying_data_from_json_file_returns_false_if_a_quadrilateral_point_is
 	test_data = json.loads(test_json_string)
 
 	#when
-	result = app.verify_data(test_data)#function under test
-	expected = False
+	result = app.verify_data(test_data)
 
+	#then
+	expected = False
 	assert result == expected
