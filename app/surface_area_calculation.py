@@ -34,34 +34,51 @@ def calculate_z_intercept(line_coordinates):
 	# z = z_start + -1(z_start - z_end) * t
 	#therefore t = z_start/(z_start - z_end)
 	#substitute t into parametric equation
-
-
 	t = start_coordinates[2] / (start_coordinates[2] - end_coordinates[2])
 
 	x_coordinate = start_coordinates[0] + (start_coordinates[0] - end_coordinates[0]) * -1 * t
 	y_coordinate = start_coordinates[1] + (start_coordinates[1] - end_coordinates[1]) * -1 * t
 
 	return [x_coordinate, y_coordinate, 0.0]
-	
+
 
 def calculate_quadrilateral_area(quadrilateral_points):
-	z_coordinate = 2
-	wet_points = 0
-	dry_points = 0
+	z_index = 2
+	points = quadrilateral_points
 
+	edges = [[quadrilateral_points[0], quadrilateral_points[1]], 
+	[quadrilateral_points[1], quadrilateral_points[2]],
+	[quadrilateral_points[2], quadrilateral_points[3]],
+	[quadrilateral_points[3], quadrilateral_points[0]]]
+	iter_edges_list = iter(edges)
+
+	for counter, edge in enumerate(edges, 1):
+		if not ((edge[0][z_index] >= 0.0 and edge[1][z_index] >= 0.0) or (edge[0][z_index] <= 0.0 and edge[1][z_index] <= 0.0)):
+			quadrilateral_points.insert((counter)%4, calculate_z_intercept(edge))
+
+	wet_points = []
+	dry_points = []
+
+	#separate wet and dry areas
 	for point in quadrilateral_points:
-		if point[z_coordinate] < 0:
-			wet_points += 1
-		if point[z_coordinate] > 0:
-			dry_points +=1
+		if point[z_index] < 0:
+			wet_points.append(point)
+		if point[z_index] > 0:
+			dry_points.append(point)	
+		if point[z_index] == 0:
+			dry_points.append(point), wet_points.append(point)
 
-	triangle_1 = [quadrilateral_points[0], quadrilateral_points[1], quadrilateral_points[2]]
-	triangle_2 = [quadrilateral_points[2], quadrilateral_points[3], quadrilateral_points[0]]
+	dry_area = 0.0
+	wet_area = 0.0
 
-	area = calculate_triangle_area(triangle_1) + calculate_triangle_area(triangle_2)
+	for x in range(2,len(wet_points)):
+			triangle = [quadrilateral_points[0], quadrilateral_points[x-1], quadrilateral_points[x]]
+			wet_area += calculate_triangle_area(triangle)
 
-	if wet_points == 0:
-		return [area, 0.0]
+	for x in range(2,len(dry_points)):
+			triangle = [quadrilateral_points[0], quadrilateral_points[x-1], quadrilateral_points[x]]
+			dry_area += calculate_triangle_area(triangle)
 
-	if dry_points == 0:
-		return [0.0, area]
+	return [dry_area, wet_area]
+
+
