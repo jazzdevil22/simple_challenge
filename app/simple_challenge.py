@@ -3,8 +3,6 @@ import json
 from verify_data import verify_data
 from surface_area_calculation import calculate_wet_and_dry_area
 
-
-
 def main(file_name):
 	data_file = open(file_name, "r")
 	data = json.loads(data_file.read())
