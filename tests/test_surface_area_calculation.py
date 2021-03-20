@@ -37,24 +37,24 @@ def test_calculate_area_of_a_wet_quadrilateral_z_values_0_or_less():
 	expected = [0.0, 16.0]
 	assert result == expected
 
-def test_calculate_area_of_a_wet_quadrilateral_z_values_0_or_less():
+def test_calculate_the_z_plane_intercept_of_a_line_between_two_points():
 	#given
-	quadrilateral_data = [[0.0, 0.0, 0.0], [3.0, 0.0, -4.0], [7.0, 0.0, -4.0], [4.0, 0.0, -0.0]]
+	line_points = [[2.0, 2.0, 2.0], [-1.0, -1.0, -2.0]]
 
 	#when
-	result = app.calculate_quadrilateral_area(quadrilateral_data)
+	result = app.calculate_z_intercept(line_points)
 
 	#then
-	expected = [0.0, 16.0]
+	expected = [0.5, 0.5, 0.0]
 	assert result == expected
 
-def test_calculate_area_of_a_partially_dry_quadrilateral():
-	#given
-	quadrilateral_data = [[0.0, 0.0, -2.0], [3.0, 0.0, 2.0], [7.0, 0.0, 2.0], [4.0, 0.0, -2.0]]
-
-	#when
-	result = app.calculate_quadrilateral_area(quadrilateral_data)
-
-	#then
-	expected = [8.0, 8.0]
-	assert result == expected
+#def test_calculate_area_of_a_partially_dry_quadrilateral():
+#	#given
+#	quadrilateral_data = [[0.0, 0.0, -2.0], [3.0, 0.0, 2.0], [7.0, 0.0, 2.0], [4.0, 0.0, -2.0]]
+#
+#	#when
+#	result = app.calculate_quadrilateral_area(quadrilateral_data)
+#
+#	#then
+#	expected = [8.0, 8.0]
+#	assert result == expected

@@ -1,2 +1,2 @@
 from .verify_data import verify_data
-from .surface_area_calculation import calculate_quadrilateral_area, calculate_edge_length
+from .surface_area_calculation import calculate_quadrilateral_area, calculate_edge_length, calculate_z_intercept

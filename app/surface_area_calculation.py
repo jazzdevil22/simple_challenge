@@ -20,7 +20,28 @@ def calculate_triangle_area(triangle_points):
 	half_perimeter = (side_a + side_b + side_c)/2
 	return math.sqrt(half_perimeter*(half_perimeter - side_a)*(half_perimeter - side_b)*(half_perimeter - side_c))
 
-def calculate_z_intercept
+
+def calculate_z_intercept(line_coordinates):
+	start_coordinates = line_coordinates[0]
+	end_coordinates = line_coordinates[1]
+
+	#parametric equation
+	# x = x_start + -1(x_start - x_end) * t
+	# y = y_start + -1(y_start - y_end) * t
+	# z = z_start + -1(z_start - z_end) * t
+	# a flat z plane reprezented by 3 points as 0x + 0y +1z = 0
+	#therefore z = 0
+	# z = z_start + -1(z_start - z_end) * t
+	#therefore t = z_start/(z_start - z_end)
+	#substitute t into parametric equation
+
+
+	t = start_coordinates[2] / (start_coordinates[2] - end_coordinates[2])
+
+	x_coordinate = start_coordinates[0] + (start_coordinates[0] - end_coordinates[0]) * -1 * t
+	y_coordinate = start_coordinates[1] + (start_coordinates[1] - end_coordinates[1]) * -1 * t
+
+	return [x_coordinate, y_coordinate, 0.0]
 	
 
 def calculate_quadrilateral_area(quadrilateral_points):
