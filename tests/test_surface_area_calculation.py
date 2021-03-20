@@ -67,13 +67,13 @@ def test_calculate_area_of_multiple_quadrilaterals():
 	#given
 	quadrilateral_1_data = [0, 1, 2, 3]
 	quadrilateral_2_data = [2, 3, 4, 5]
-	coordiantes_data = [[0.0, 0.0, -2.0], [3.0, 0.0, 2.0], [7.0, 0.0, 2.0], [4.0, 0.0, -2.0], [8.0, 0.0, -2.0], [11.0, 0.0, 2.0]]
+	coordiantes_data = [[0.0, 0.0, -1.0], [3.0, 0.0, 2.0], [7.0, 0.0, 2.0], [4.0, 0.0, -1.0], [8.0, 0.0, -1.0], [11.0, 0.0, 2.0]]
 	test_data = {"q": [quadrilateral_1_data, quadrilateral_2_data], "p": coordiantes_data}
 
 	#when
 	result = app.calculate_wet_and_dry_area(test_data)
 
 	#then
-	expected = [16.0, 16.0]
+	expected = [16.0, 8.0]
 	assert math.isclose(result.get("dry"), expected[0])
 	assert math.isclose(result.get("wet"), expected[1])

@@ -72,11 +72,11 @@ def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
 	wet_area = 0.0
 
 	for x in range(2,len(wet_points)):
-			triangle = [quadrilateral_points[0], quadrilateral_points[x-1], quadrilateral_points[x]]
+			triangle = [wet_points[0], wet_points[x-1], wet_points[x]]
 			wet_area += calculate_triangle_area(triangle)
 
 	for x in range(2,len(dry_points)):
-			triangle = [quadrilateral_points[0], quadrilateral_points[x-1], quadrilateral_points[x]]
+			triangle = [dry_points[0], dry_points[x-1], dry_points[x]]
 			dry_area += calculate_triangle_area(triangle)
 
 	return [dry_area, wet_area]
