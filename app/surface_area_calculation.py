@@ -20,8 +20,27 @@ def calculate_triangle_area(triangle_points):
 	half_perimeter = (side_a + side_b + side_c)/2
 	return math.sqrt(half_perimeter*(half_perimeter - side_a)*(half_perimeter - side_b)*(half_perimeter - side_c))
 
+def calculate_z_intercept
+	
+
 def calculate_quadrilateral_area(quadrilateral_points):
+	z_coordinate = 2
+	wet_points = 0
+	dry_points = 0
+
+	for point in quadrilateral_points:
+		if point[z_coordinate] < 0:
+			wet_points += 1
+		if point[z_coordinate] > 0:
+			dry_points +=1
+
 	triangle_1 = [quadrilateral_points[0], quadrilateral_points[1], quadrilateral_points[2]]
 	triangle_2 = [quadrilateral_points[2], quadrilateral_points[3], quadrilateral_points[0]]
 
-	return calculate_triangle_area(triangle_1) + calculate_triangle_area(triangle_2)
+	area = calculate_triangle_area(triangle_1) + calculate_triangle_area(triangle_2)
+
+	if wet_points == 0:
+		return [area, 0.0]
+
+	if dry_points == 0:
+		return [0.0, area]
