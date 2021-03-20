@@ -9,4 +9,4 @@ test:
 	pytest
 	
 run:
-	python simple_challenge_app.py simple_challenge_data.jason
+	python app/simple_challenge.py simple_challenge_data.json

@@ -42,7 +42,7 @@ def calculate_z_intercept(line_coordinates):
 	return [x_coordinate, y_coordinate, 0.0]
 
 
-def calculate_quadrilateral_area(quadrilateral_points):
+def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
 	z_index = 2
 	points = quadrilateral_points
 
