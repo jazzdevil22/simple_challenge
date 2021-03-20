@@ -81,4 +81,21 @@ def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
 
 	return [dry_area, wet_area]
 
+def calculate_wet_and_dry_area(data):
+	coordinates = data.get("p")
+	quadrilaterals = data.get("q")
 
+	dry_area = 0
+	wet_area = 0
+
+	for quadrilateral in quadrilaterals:
+		quad_points = []
+		for point in quadrilateral:
+			quad_points.append(coordinates[point])
+		
+		areas = calculate_quadrilateral_wet_and_dry_area(quad_points)
+		dry_area += areas[0]
+		wet_area += areas[1]
+
+	areas = {"dry": dry_area, "wet": wet_area}
+	return areas
