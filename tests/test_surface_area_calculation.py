@@ -63,7 +63,7 @@ def test_calculate_area_of_a_partially_dry_quadrilateral():
 	assert math.isclose(result[1], expected[1])
 
 
-def test_calculate_area_of_multiple_quadrilaterals():
+def test_calculate_area_of_multiple_partially_dry_quadrilaterals():
 	#given
 	quadrilateral_1_data = [0, 1, 2, 3]
 	quadrilateral_2_data = [2, 3, 4, 5]
@@ -75,5 +75,20 @@ def test_calculate_area_of_multiple_quadrilaterals():
 
 	#then
 	expected = [16.0, 8.0]
+	assert math.isclose(result.get("dry"), expected[0])
+	assert math.isclose(result.get("wet"), expected[1])
+
+def test_calculate_area_of_one_wet_and_one_dry_quadrilaterals():
+	#given
+	quadrilateral_1_data = [0, 1, 2, 3]
+	quadrilateral_2_data = [1, 2, 4, 5]
+	coordiantes_data = [[-1.0, 0.0, -1.0], [0.0, 0.0, 0], [4.0, 0.0, 0], [3.0, 0.0, -1.0], [4.0, 0.0, 2.0], [0.0, 0.0, 2.0]]
+	test_data = {"q": [quadrilateral_1_data, quadrilateral_2_data], "p": coordiantes_data}
+
+	#when
+	result = app.calculate_wet_and_dry_area(test_data)
+
+	#then
+	expected = [8.0, 4.0]
 	assert math.isclose(result.get("dry"), expected[0])
 	assert math.isclose(result.get("wet"), expected[1])
