@@ -1,13 +1,17 @@
 import math
 
+x_index = 0
+y_index = 1
+z_index = 2
+
 def calculate_edge_length(line_coordinates):
 	start_coordinates = line_coordinates[0]
 	end_coordinates = line_coordinates[1]
 
 	#using pythagoras
-	x_distance_square = math.pow((start_coordinates[0]-end_coordinates[0]), 2)
-	y_distance_square = math.pow((start_coordinates[1]-end_coordinates[1]), 2)
-	z_distance_square = math.pow((start_coordinates[2]-end_coordinates[2]), 2)
+	x_distance_square = math.pow((start_coordinates[x_index]-end_coordinates[x_index]), 2)
+	y_distance_square = math.pow((start_coordinates[y_index]-end_coordinates[y_index]), 2)
+	z_distance_square = math.pow((start_coordinates[z_index]-end_coordinates[z_index]), 2)
 
 	return math.sqrt(x_distance_square + y_distance_square + z_distance_square)
 
@@ -19,7 +23,6 @@ def calculate_triangle_area(triangle_points):
 	#Heron's formula
 	half_perimeter = (side_a + side_b + side_c)/2
 	return math.sqrt(half_perimeter*(half_perimeter - side_a)*(half_perimeter - side_b)*(half_perimeter - side_c))
-
 
 def calculate_z_intercept(line_coordinates):
 	start_coordinates = line_coordinates[0]
@@ -34,32 +37,25 @@ def calculate_z_intercept(line_coordinates):
 	# z = z_start + -1(z_start - z_end) * t
 	#therefore t = z_start/(z_start - z_end)
 	#substitute t into parametric equation
-	t = start_coordinates[2] / (start_coordinates[2] - end_coordinates[2])
+	t = start_coordinates[z_index] / (start_coordinates[z_index] - end_coordinates[z_index])
 
-	x_coordinate = start_coordinates[0] + (start_coordinates[0] - end_coordinates[0]) * -1 * t
-	y_coordinate = start_coordinates[1] + (start_coordinates[1] - end_coordinates[1]) * -1 * t
+	x_coordinate = start_coordinates[x_index] + (start_coordinates[x_index] - end_coordinates[x_index]) * -1 * t
+	y_coordinate = start_coordinates[y_index] + (start_coordinates[y_index] - end_coordinates[y_index]) * -1 * t
 
 	return [x_coordinate, y_coordinate, 0.0]
 
 
-def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
-	z_index = 2
-	points = quadrilateral_points
-
+def insert_z_intercept_points(quadrilateral_points):
 	edges = [[quadrilateral_points[0], quadrilateral_points[1]], 
 	[quadrilateral_points[1], quadrilateral_points[2]],
 	[quadrilateral_points[2], quadrilateral_points[3]],
 	[quadrilateral_points[3], quadrilateral_points[0]]]
-	iter_edges_list = iter(edges)
 
 	for counter, edge in enumerate(edges, 1):
 		if not ((edge[0][z_index] >= 0.0 and edge[1][z_index] >= 0.0) or (edge[0][z_index] <= 0.0 and edge[1][z_index] <= 0.0)):
 			quadrilateral_points.insert((counter)%4, calculate_z_intercept(edge))
 
-	wet_points = []
-	dry_points = []
-
-	#separate wet and dry areas
+def separate_wet_and_dry_points(quadrilateral_points, wet_points, dry_points):
 	for point in quadrilateral_points:
 		if point[z_index] < 0:
 			wet_points.append(point)
@@ -68,16 +64,21 @@ def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
 		if point[z_index] == 0:
 			dry_points.append(point), wet_points.append(point)
 
-	dry_area = 0.0
-	wet_area = 0.0
+def calculate_shape_area(points):
+	area = 0.0
+	for x in range(2,len(points)):
+		triangle = [points[0], points[x-1], points[x]]
+		area += calculate_triangle_area(triangle)
+	return area
 
-	for x in range(2,len(wet_points)):
-			triangle = [wet_points[0], wet_points[x-1], wet_points[x]]
-			wet_area += calculate_triangle_area(triangle)
+def calculate_quadrilateral_wet_and_dry_area(quadrilateral_points):
+	wet_points = []
+	dry_points = []
 
-	for x in range(2,len(dry_points)):
-			triangle = [dry_points[0], dry_points[x-1], dry_points[x]]
-			dry_area += calculate_triangle_area(triangle)
+	insert_z_intercept_points(quadrilateral_points)
+	separate_wet_and_dry_points(quadrilateral_points, wet_points,dry_points)
+	dry_area = calculate_shape_area(dry_points)
+	wet_area = calculate_shape_area(wet_points)
 
 	return [dry_area, wet_area]
 
@@ -85,8 +86,8 @@ def calculate_wet_and_dry_area(data):
 	coordinates = data.get("p")
 	quadrilaterals = data.get("q")
 
-	dry_area = 0
-	wet_area = 0
+	dry_area = 0.0
+	wet_area = 0.0
 
 	for quadrilateral in quadrilaterals:
 		quad_points = []
